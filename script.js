@@ -1,3 +1,5 @@
+// For this script Paper = 0, Rock = 1, Scissors = 2
+
 function getRandomInt(max) {
     return Math.floor(Math.random() * max);
 }
@@ -8,12 +10,19 @@ function getComputerChoice() {
 }
 
 function getPlayerInput() {
-    return null;
+    let input = window.prompt();
+    input = input.toLowerCase();
+    if (input === "paper") {
+        return 0;
+    }
+    else if (input === "rock") {
+        return 1;
+    } else {
+        return 2;
+    }
 }
 
 function playRound(playerSelection, computerSelection) {
-    console.log(playerSelection);
-    console.log(computerSelection);
 
     if (playerSelection === computerSelection) {
         return "It's a tie!"; 
@@ -28,7 +37,8 @@ function playRound(playerSelection, computerSelection) {
     }
 }
 
-const playerSelection = 0;
-const computerSelection = getComputerChoice();
-console.log(playRound(playerSelection, computerSelection));
-
+for (let i = 0; i < 5; i++) {
+    const playerSelection = getPlayerInput();
+    const computerSelection = getComputerChoice();
+    console.log(playRound(playerSelection, computerSelection));
+}
