@@ -74,6 +74,6 @@ function playGame() {
     } else if (computerWins > playerWins) {
         console.log("Computer won the most games!")
     } else {
-        console.log("It's a tie!")
+        console.log("It's an overall tie!")
     }
 }
