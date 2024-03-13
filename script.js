@@ -22,25 +22,58 @@ function getPlayerInput() {
     }
 }
 
-function playRound(playerSelection, computerSelection) {
-    console.log('player selection = ' + playerSelection);
-    console.log('computer selection = ' + computerSelection);
-
-    if (playerSelection === computerSelection) {
-        return "It's a tie!"; 
-    } else if (playerSelection === 2 && computerSelection === 0) {
-        return "You win!";
-    } else if (computerSelection === 2 && playerSelection === 0) {
-        return "Computer wins!";
-    } else if (computerSelection < playerSelection) {
-        return "Computer wins!";
+function translate(numDraw) {
+    let draw;
+    if (numDraw === 0) {
+        draw = "Paper";
+    } else if (numDraw === 1) {
+        draw = "Rock";
     } else {
-        return "You win!";
+        draw = "Scissors"
+    }
+    return draw;
+}
+
+function playRound(playerSelection, computerSelection) {
+    if (playerSelection === computerSelection) {
+        console.log(`It's a tie between ${translate(playerSelection)}!`)
+        return "tie"; 
+    } else if (playerSelection === 2 && computerSelection === 0) {
+        console.log("You win! Scissors beats Paper")
+        return "player";
+    } else if (computerSelection === 2 && playerSelection === 0) {
+        console.log("You lose! Scissors beats paper")
+        return "computer";
+    } else if (computerSelection < playerSelection) {
+        console.log(`You lose! ${translate(computerSelection)} beats ${translate(playerSelection)}`)
+        return "computer";
+    } else {
+        console.log(`You win! ${translate(playerSelection)} beats ${translate(computerSelection)}`)
+        return "player"
     }
 }
 
-for (let i = 0; i < 5; i++) {
-    const playerSelection = getPlayerInput();
-    const computerSelection = getComputerChoice();
-    console.log(playRound(playerSelection, computerSelection));
+function playGame() {
+    let playerWins = 0;
+    let computerWins = 0;
+
+    for (let i = 0; i < 5; i++) {
+        const playerSelection = getPlayerInput();
+        const computerSelection = getComputerChoice();
+        let winner = playRound(playerSelection, computerSelection);
+        if (winner == "player") {
+            ++playerWins;
+        } else if (winner == "computer") {
+            ++computerWins;
+        }
+    }
+
+    // Report results 
+    if (playerWins > computerWins) {
+        console.log("You won the most games!")
+    } else if (computerWins > playerWins) {
+        console.log("Computer won the most games!")
+    } else {
+        console.log("It's a tie!")
+    }
 }
