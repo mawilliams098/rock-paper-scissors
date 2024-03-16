@@ -32,24 +32,67 @@ function translate(numDraw) {
     return draw;
 }
 
+// Manipulate the DOM
+let playerWins = 0;
+let computerWins = 0;
+let roundCount = 0;
+
+const buttons = document.querySelectorAll("button");
+const results = document.createElement("div");
+const winnerList = document.createElement("ul");
+document.body.appendChild(results); 
+results.appendChild(winnerList);
+
+
+
 function playRound(playerSelection, computerSelection) {
+    const roundWinner = document.createElement("li");
     if (playerSelection === computerSelection) {
-        console.log(`It's a tie between ${translate(playerSelection)}!`)
+        roundWinner.textContent = `It's a tie between ${translate(playerSelection)}!`;
+        winnerList.appendChild(roundWinner);
         return "tie"; 
     } else if (playerSelection === 2 && computerSelection === 0) {
-        console.log("You win! Scissors beats Paper")
+        roundWinner.textContent = "You win! Scissors beats Paper";
+        winnerList.appendChild(roundWinner);
         return "player";
     } else if (computerSelection === 2 && playerSelection === 0) {
-        console.log("You lose! Scissors beats paper")
+        roundWinner.textContent = "You lose! Scissors beats paper";
+        winnerList.appendChild(roundWinner);
         return "computer";
     } else if (computerSelection < playerSelection) {
-        console.log(`You lose! ${translate(computerSelection)} beats ${translate(playerSelection)}`)
+        roundWinner.textContent = `You lose! ${translate(computerSelection)} beats ${translate(playerSelection)}`;
+        winnerList.appendChild(roundWinner);
         return "computer";
     } else {
-        console.log(`You win! ${translate(playerSelection)} beats ${translate(computerSelection)}`)
+        roundWinner.textContent = `You win! ${translate(playerSelection)} beats ${translate(computerSelection)}`;
+        winnerList.appendChild(roundWinner);
         return "player"
     }
+   
 }
+
+buttons.forEach((button) => {
+    button.addEventListener("click", () => {
+        const playerSelection = getPlayerInput(button.id);
+        const computerSelection = getComputerChoice();
+        let winner = playRound(playerSelection, computerSelection);
+        ++roundCount;
+
+        if (winner == "player") {
+            ++playerWins;
+
+        } else if (winner == "computer") {
+            ++computerWins;
+        } else {
+            // announce that it was a tie 
+        }
+
+        if (playerWins === 5 || computerWins == 5) {
+            // announce the overall winner
+        }
+    })
+})
+
 
 function playGame() {
     let playerWins = 0;
@@ -75,32 +118,3 @@ function playGame() {
         console.log("It's an overall tie!")
     }
 }
-
-// Manipulate the DOM
-const buttons = document.querySelectorAll("button");
-const results = document.createElement("div");
-document.body.appendChild(results);
-
-let playerWins = 0; // store these as DOM elements instead? 
-let computerWins = 0;
-let roundCount = 0;
-
-buttons.forEach((button) => {
-    button.addEventListener("click", () => {
-        const playerSelection = getPlayerInput(button.id);
-        const computerSelection = getComputerChoice();
-        let winner = playRound(playerSelection, computerSelection);
-
-        ++roundCount;
-        if (winner == "player") {
-            ++playerWins;
-        } else if (winner == "computer") {
-            ++computerWins;
-        }
-
-        if (playerWins === 5 || computerWins == 5) {
-            // announce the overall winner
-        }
-
-    })
-})
