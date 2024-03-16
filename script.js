@@ -9,13 +9,11 @@ function getComputerChoice() {
     return draw;
 }
 
-function getPlayerInput() {
-    let input = window.prompt();
-    input = input.toLowerCase();
-    if (input === "paper") {
+function getPlayerInput(buttonId) {
+    if (buttonId === "paper") {
         return 0;
     }
-    else if (input === "rock") {
+    else if (buttonId === "rock") {
         return 1;
     } else {
         return 2;
@@ -77,3 +75,32 @@ function playGame() {
         console.log("It's an overall tie!")
     }
 }
+
+// Manipulate the DOM
+const buttons = document.querySelectorAll("button");
+const results = document.createElement("div");
+document.body.appendChild(results);
+
+let playerWins = 0; // store these as DOM elements instead? 
+let computerWins = 0;
+let roundCount = 0;
+
+buttons.forEach((button) => {
+    button.addEventListener("click", () => {
+        const playerSelection = getPlayerInput(button.id);
+        const computerSelection = getComputerChoice();
+        let winner = playRound(playerSelection, computerSelection);
+
+        ++roundCount;
+        if (winner == "player") {
+            ++playerWins;
+        } else if (winner == "computer") {
+            ++computerWins;
+        }
+
+        if (playerWins === 5 || computerWins == 5) {
+            // announce the overall winner
+        }
+
+    })
+})
