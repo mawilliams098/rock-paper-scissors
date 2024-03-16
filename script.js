@@ -55,6 +55,7 @@ function updateDOM(resultString) {
 function playRound(playerSelection, computerSelection) {
     let resultString;
     roundCount++
+    
     if (playerSelection === computerSelection) {
         resultString = `It's a tie between ${translate(playerSelection)}!`;
         updateDOM(resultString);
@@ -66,12 +67,10 @@ function playRound(playerSelection, computerSelection) {
         ++computerWins;
         resultString = "You lose! Scissors beats paper";
         updateDOM(resultString);
-        return "computer";
     } else if (computerSelection < playerSelection) {
         ++computerWins;
         resultString = `You lose! ${translate(computerSelection)} beats ${translate(playerSelection)}`;
         updateDOM(resultString);
-        return "computer";
     } else {
         ++playerWins;
         resultString = `You win! ${translate(playerSelection)} beats ${translate(computerSelection)}`;
