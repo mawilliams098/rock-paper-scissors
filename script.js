@@ -78,10 +78,8 @@ function playRound(playerSelection, computerSelection) {
     } 
 
     if (playerWins === 5) {
-        console.log('here!');
         alert("You won overall!");
     } else if (computerWins === 5) {
-        console.log('here');
         alert("Computer won the most games!");
     } 
 }
