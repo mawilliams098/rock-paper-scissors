@@ -45,8 +45,6 @@ content.insertAdjacentElement('afterbegin', tally);
 document.body.appendChild(content); 
 content.appendChild(winnerList);
 
-
-
 function updateDOM(resultString) {
     const roundWinner = document.createElement("li");
     roundWinner.textContent = resultString;
@@ -87,7 +85,6 @@ function playRound(playerSelection, computerSelection) {
         console.log('here');
         alert("Computer won the most games!");
     } 
-
 }
 
 buttons.forEach((button) => {
@@ -95,6 +92,5 @@ buttons.forEach((button) => {
         const playerSelection = getPlayerInput(button.id);
         const computerSelection = getComputerChoice();
         playRound(playerSelection, computerSelection);
-
     })
 })
