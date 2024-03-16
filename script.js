@@ -54,7 +54,7 @@ function updateDOM(resultString) {
 
 function playRound(playerSelection, computerSelection) {
     let resultString;
-    roundCount++
+    roundCount++;
     
     if (playerSelection === computerSelection) {
         resultString = `It's a tie between ${translate(playerSelection)}!`;
