@@ -60,7 +60,6 @@ function playRound(playerSelection, computerSelection) {
     if (playerSelection === computerSelection) {
         resultString = `It's a tie between ${translate(playerSelection)}!`;
         updateDOM(resultString);
-        return "tie"; 
     } else if (playerSelection === 2 && computerSelection === 0) {
         ++playerWins;
         resultString = "You win! Scissors beats Paper";
@@ -79,9 +78,15 @@ function playRound(playerSelection, computerSelection) {
         ++playerWins;
         resultString = `You win! ${translate(playerSelection)} beats ${translate(computerSelection)}`;
         updateDOM(resultString);
-        return "player"
     } 
 
+    if (playerWins === 5) {
+        console.log('here!');
+        alert("You won overall!");
+    } else if (computerWins === 5) {
+        console.log('here');
+        alert("Computer won the most games!");
+    } 
 
 }
 
@@ -90,12 +95,6 @@ buttons.forEach((button) => {
         const playerSelection = getPlayerInput(button.id);
         const computerSelection = getComputerChoice();
         playRound(playerSelection, computerSelection);
-        if (playerWins === 5) {
-            console.log('here!');
-            alert("You won overall!");
-        } else if (computerWins === 5) {
-            console.log('here');
-            alert("Computer won the most games!");
-        } 
+
     })
 })
